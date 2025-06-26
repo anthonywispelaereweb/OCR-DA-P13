@@ -58,7 +58,7 @@ const Login = () => {
             Sign In
           </button>
           {isLoading && <p>Loading...</p>}
-          {error && <p>Error: {error.toString()}</p>}
+          {error && <p> {JSON.stringify(error.data.message)}</p>}
         </form>
       </section>
     </main>

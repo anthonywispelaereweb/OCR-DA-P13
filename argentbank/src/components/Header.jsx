@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate()
   const { isAuthenticated } = useSelector(state => state.auth)
   const { firstName } = useSelector(state => state.profile)
-
+  const isLoginPage = window.location.pathname === '/login'
   const handleSignOut = () => {
     dispatch(logout())
     navigate('/')
@@ -22,10 +22,11 @@ const Header = () => {
       </Link>
       <div>
         {!isAuthenticated ? (
+          !isLoginPage && (
           <Link className='main-nav-item' to='/login'>
             <i className='fa fa-user-circle'></i>
             Sign In
-          </Link>
+          </Link>)
         ) : (
           <Link className='main-nav-item' onClick={handleSignOut}>
             <i className='fa fa-user-circle'></i> {firstName} <span> </span>
