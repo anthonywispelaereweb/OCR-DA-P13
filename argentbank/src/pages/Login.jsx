@@ -1,14 +1,14 @@
 import { useState } from 'react'
+import { useLoginMutation } from '@/redux/features/auth/authApi'
 import { useDispatch } from 'react-redux'
+import { setGlobalCredentials } from '@/redux/features/auth/authSlice'
 import { useNavigate } from 'react-router'
-import { useLoginMutation } from '@/redux/features/auth/api'
-import { setGlobalCredentials } from '@/redux/features/auth/slice'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [credentials, setCredentials] = useState({ email: 'tony@stark.com', password: 'password123' })
-  const [login, { data, error, isLoading }] = useLoginMutation()
+  const [login, { error, isLoading }] = useLoginMutation()
   const handleSignIn = async e => {
     e.preventDefault()
     try {
@@ -25,6 +25,7 @@ const Login = () => {
       console.error('Failed to sign in:', err)
     }
   }
+
   return (
     <main className='main bg-dark sign-in-page'>
       <section className='sign-in-content'>

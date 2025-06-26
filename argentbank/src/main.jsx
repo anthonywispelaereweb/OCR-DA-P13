@@ -1,17 +1,31 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { router } from "./router";
-import { RouterProvider } from "react-router-dom";
-import { BrowserRouter } from "react-router";
-
-import './index.css'
-import store from '@/redux/store'
 import { Provider } from 'react-redux'
+import { BrowserRouter, Routes, Route } from 'react-router'
+
+import Layout from '@pages/layout'
+import myRoutes from './myRoutes.jsx'
+
+import { store } from '@/redux/store'
+import './index.css'
 
 createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <RouterProvider router={router} />
-    </BrowserRouter>
-  </Provider>,
+  <StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+          {myRoutes.map((customRoute, index) => (
+            <Route
+              key={index}
+              path={customRoute.path}
+              index={customRoute.index}
+              element={customRoute.element}
+            />
+          ))}  
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>
 )

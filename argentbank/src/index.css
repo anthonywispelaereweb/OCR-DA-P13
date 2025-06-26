@@ -15,24 +15,34 @@ body {
 
 .main {
   flex: 1;
+  min-height: calc(100vh - 190px);
 }
 
 .bg-dark {
   background-color: #12002b;
 }
 
+.sign-in-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .sr-only {
   border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  /* 1 */
   -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
+  clip-path: inset(50%) !important;
+  /* 2 */
   height: 1px !important;
   margin: -1px !important;
   overflow: hidden !important;
   padding: 0 !important;
   position: absolute !important;
   width: 1px !important;
-  white-space: nowrap !important; /* 3 */
+  white-space: nowrap !important;
+  /* 3 */
 }
 
 .main-nav {
@@ -40,7 +50,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  width: calc(100% - 40px);
 }
 
 .main-nav a {
@@ -51,10 +60,11 @@ body {
 .main-nav a.router-link-exact-active {
   color: #42b983;
 }
-
+.main-item,
 .main-nav-item {
-  text-decoration: none;
-  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .main-nav-item:hover {
@@ -72,7 +82,7 @@ body {
 }
 
 .hero {
-  background-image: url('../img/bank-tree.jpeg');
+  background-image: url('./bank-tree.jpeg');
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -165,18 +175,35 @@ body {
   background-color: #00bc77;
   color: #fff;
 }
-.sign-in-button:disabled {
-  border-color: lightgray;
-  background-color: dimgrey;
-}
 
-.sign-in-content {
+.sign-in-content,
+.edit-form {
   box-sizing: border-box;
   background-color: white;
   width: 300px;
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.edit-button {
+  flex: 1;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.edit-button.cancel {
+  background-color: #fff;
+  color: #00bc77;
 }
 
 .sign-in-icon {
@@ -268,7 +295,9 @@ body {
   color: #fff;
   margin-bottom: 2rem;
 }
-
+.header h1 .user-name {
+  margin: 0;
+}
 .transaction-button {
   display: block;
   width: 100%;
