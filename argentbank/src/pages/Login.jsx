@@ -17,7 +17,7 @@ const Login = () => {
       // Console.log('Token from response:', response.token);
       if (!response.body.token) {
         console.error('No token in response:', response)
-        return
+        throw new Error('No token in response')
       }
       dispatch(setGlobalCredentials({ token: response.body.token }))
       navigate('/profile')
@@ -58,7 +58,7 @@ const Login = () => {
             Sign In
           </button>
           {isLoading && <p>Loading...</p>}
-          {error && <p> {JSON.stringify(error.data.message)}</p>}
+          {error && <p className='error'> {JSON.stringify(error?.data?.message)}</p>}
         </form>
       </section>
     </main>

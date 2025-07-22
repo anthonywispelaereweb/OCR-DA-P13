@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   title: Transactions API
   version: 1.0.0
-host: localhost:3001
+host: localhost:4001
 basePath: /api/v1
 schemes:
   - http
@@ -15,7 +15,7 @@ paths:
           name: month
           type: string
           description: The month for which to retrieve the transactions (the current month)
-          default: "2023-04"
+          default: "2025-07"
           required: true
       responses:
         200:

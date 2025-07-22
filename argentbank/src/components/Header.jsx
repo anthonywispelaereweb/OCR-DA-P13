@@ -20,7 +20,7 @@ const Header = () => {
         <img className='main-nav-logo-image' src={argentBankLogo} alt='Argent Bank Logo' />
         <h1 className='sr-only'>Argent Bank</h1>
       </Link>
-      <div>
+      <div className='main-nav-login-logout'>
         {!isAuthenticated ? (
           !isLoginPage && (
           <Link className='main-nav-item' to='/login'>
@@ -28,11 +28,13 @@ const Header = () => {
             Sign In
           </Link>)
         ) : (
-          <Link className='main-nav-item' onClick={handleSignOut}>
+          <>
             <i className='fa fa-user-circle'></i> {firstName} <span> </span>
-            <i className='fa fa-sign-out'></i>
-            Sign Out
-          </Link>
+            <Link className='main-nav-item' onClick={handleSignOut}>
+              <i className='fa fa-sign-out'></i>
+              Sign Out
+            </Link>
+          </>
         )}
       </div>
     </nav>
