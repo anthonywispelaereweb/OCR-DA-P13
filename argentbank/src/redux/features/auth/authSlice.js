@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   token: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  remember: JSON.parse(sessionStorage.getItem('remember')) ?? false
 }
 
 const authSlice = createSlice({
@@ -16,9 +17,12 @@ const authSlice = createSlice({
     logout: state => {
       state.token = null
       state.isAuthenticated = false
+    },
+    setRemember: (state, action) => {
+      state.remember = action.payload.remember
     }
   }
 })
 
-export const { setGlobalCredentials, logout } = authSlice.actions
+export const { setGlobalCredentials, logout, setRemember } = authSlice.actions
 export default authSlice.reducer

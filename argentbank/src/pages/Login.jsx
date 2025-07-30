@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { useLoginMutation } from '@/redux/features/auth/authApi'
 import { useDispatch } from 'react-redux'
-import { setGlobalCredentials } from '@/redux/features/auth/authSlice'
+import { setGlobalCredentials, setRemember } from '@/redux/features/auth/authSlice'
 import { useNavigate } from 'react-router'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [credentials, setCredentials] = useState({ email: 'tony@stark.com', password: 'password123' })
-  const [login, { error, isLoading }] = useLoginMutation()
+  const [credentials, setCredentials] = useState({ email: sessionStorage.getItem('usename') ?? '', password: 'password123' })
+  const [isRemenber, setIsRemenber] = useState(JSON.parse(sessionStorage.getItem('remember')) ?? false)
+  const [login, { error, isLoading },] = useLoginMutation()
   const handleSignIn = async e => {
     e.preventDefault()
     try {
       const response = await login(credentials).unwrap()
       console.log('Login response:', response)
-      // Console.log('Token from response:', response.token);
       if (!response.body.token) {
         console.error('No token in response:', response)
         throw new Error('No token in response')
@@ -23,6 +23,21 @@ const Login = () => {
       navigate('/profile')
     } catch (err) {
       console.error('Failed to sign in:', err)
+    }
+  }
+
+  const handleRemenber = async e => {
+    const choise = e.target.checked
+    setIsRemenber(choise)
+    dispatch(setRemember({remember : choise}))
+
+    if (choise) {
+      sessionStorage.setItem('remember',choise)
+      sessionStorage.setItem('usename',credentials.email)
+      dispatch(setRemember({remenber : choise}))
+    } else {
+      sessionStorage.removeItem('remember')
+      sessionStorage.removeItem('usename')
     }
   }
 
@@ -51,7 +66,7 @@ const Login = () => {
             />
           </div>
           <div className='input-remember'>
-            <input type='checkbox' id='remember-me' />
+            <input type='checkbox' id='remember-me' checked={isRemenber} onChange={(e) => handleRemenber(e)} />
             <label htmlFor='remember-me'>Remember me</label>
           </div>
           <button type='submit' className='sign-in-button' disabled={isLoading}>
