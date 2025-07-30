@@ -8,6 +8,7 @@ const UserProfile = () => {
   const [getProfile, { isLoading: profileLoading, error }] = useGetProfileMutation()
   const [updateProfile, { isLoading: updateLoading }] = useUpdateProfileMutation()
   const profileData = useSelector(state => state.profile)
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const [isEditing, setIsEditing] = useState(false)
   const [editForm, setEditForm] = useState({
     firstName: '',
@@ -17,19 +18,21 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const result = await getProfile().unwrap()
-        if (result?.body) {
-          dispatch(
-            setProfile({
-              firstName: result.body.firstName,
-              lastName: result.body.lastName,
-              email: result.body.email
-            }),
-            setEditForm({
-              firstName: result.body.firstName,
-              lastName: result.body.lastName
-            })
-          )
+        if(isAuthenticated) {
+          const result = await getProfile().unwrap()
+          if (result?.body) {
+            dispatch(
+              setProfile({
+                firstName: result.body.firstName,
+                lastName: result.body.lastName,
+                email: result.body.email
+              }),
+              setEditForm({
+                firstName: result.body.firstName,
+                lastName: result.body.lastName
+              })
+            )
+          }
         }
       } catch (err) {
         console.error('Failed to fetch profile:', err)
@@ -37,7 +40,7 @@ const UserProfile = () => {
     }
 
     fetchProfile()
-  }, [getProfile, dispatch])
+  }, [getProfile, dispatch, isAuthenticated])
 
   const handleUpdateProfile = async e => {
     e.preventDefault()

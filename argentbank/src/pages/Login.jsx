@@ -1,20 +1,22 @@
 import { useState } from 'react'
 import { useLoginMutation } from '@/redux/features/auth/authApi'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setGlobalCredentials, setRemember } from '@/redux/features/auth/authSlice'
 import { useNavigate } from 'react-router'
+
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const rememberStore = useSelector(state => state.auth.remember)
+  dispatch(setRemember({remember : JSON.parse(sessionStorage.getItem('remember'))}))
+
   const [credentials, setCredentials] = useState({ email: sessionStorage.getItem('usename') ?? '', password: 'password123' })
-  const [isRemenber, setIsRemenber] = useState(JSON.parse(sessionStorage.getItem('remember')) ?? false)
   const [login, { error, isLoading },] = useLoginMutation()
   const handleSignIn = async e => {
     e.preventDefault()
     try {
       const response = await login(credentials).unwrap()
-      console.log('Login response:', response)
       if (!response.body.token) {
         console.error('No token in response:', response)
         throw new Error('No token in response')
@@ -28,7 +30,6 @@ const Login = () => {
 
   const handleRemenber = async e => {
     const choise = e.target.checked
-    setIsRemenber(choise)
     dispatch(setRemember({remember : choise}))
 
     if (choise) {
@@ -66,7 +67,7 @@ const Login = () => {
             />
           </div>
           <div className='input-remember'>
-            <input type='checkbox' id='remember-me' checked={isRemenber} onChange={(e) => handleRemenber(e)} />
+            <input type='checkbox' id='remember-me' checked={rememberStore} onChange={(e) => handleRemenber(e)} />
             <label htmlFor='remember-me'>Remember me</label>
           </div>
           <button type='submit' className='sign-in-button' disabled={isLoading}>
