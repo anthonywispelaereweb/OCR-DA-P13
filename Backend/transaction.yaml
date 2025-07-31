@@ -1,24 +1,6 @@
 swagger: "2.0"
 info:
   title: Bank Argent API documentation User and Transaction Module
-  description: Contains all available API endpoints in this codebase
-  version: "1.0.0"
-  termsOfService: "http://swagger.io/terms/"
-host: localhost:3001
-basePath: /api/v1
-schemes:
-  - http
-securityDefinitions:
-  Bearer:
-    type: apiKey
-    name: Authorization
-    in: header
-tags:
-  - name: User Module
-    description: Operations about user authentication and profile
-  - name: Transaction Module
-    description: Operations about transactions, notes and categories
-paths:
   version: 1.0.0
 host: localhost:3001
 basePath: /api/v1 
@@ -426,6 +408,11 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error 
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
 
 definitions:
   Transaction:
