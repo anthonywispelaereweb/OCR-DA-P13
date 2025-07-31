@@ -28,14 +28,14 @@ const Login = () => {
     }
   }
 
-  const handleRemenber = async e => {
+  const handleRemember = async e => {
     const choise = e.target.checked
-    dispatch(setRemember({remember : choise}))
+    dispatch(setRemember({ choise }))
 
     if (choise) {
       sessionStorage.setItem('remember',choise)
       sessionStorage.setItem('usename',credentials.email)
-      dispatch(setRemember({remenber : choise}))
+      dispatch(setRemember({ choise }))
     } else {
       sessionStorage.removeItem('remember')
       sessionStorage.removeItem('usename')
@@ -67,7 +67,7 @@ const Login = () => {
             />
           </div>
           <div className='input-remember'>
-            <input type='checkbox' id='remember-me' checked={rememberStore} onChange={(e) => handleRemenber(e)} />
+            <input type='checkbox' id='remember-me' checked={rememberStore} onChange={(e) => handleRemember(e)} />
             <label htmlFor='remember-me'>Remember me</label>
           </div>
           <button type='submit' className='sign-in-button' disabled={isLoading}>
