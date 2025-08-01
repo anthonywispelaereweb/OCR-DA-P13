@@ -41,6 +41,7 @@ paths:
           description: Invalid request
         500:
           description: Internal server error
+  /user/transaction:
     post:
       tags:
         - Transaction Module
@@ -66,7 +67,7 @@ paths:
         500:
           description: Internal server error
   
-  /user/transaction/{transactionId}:
+  /user/transactions/{transactionId}:
     get:
       tags:
         - Transaction Module
@@ -99,7 +100,7 @@ paths:
         500:
           description: Internal server error
 
-  /user/transaction/{transactionId}/notes:
+  /user/transactions/{transactionId}/notes:
     post:
       tags:
         - Transaction Module
@@ -132,7 +133,7 @@ paths:
         500:
           description: Internal server error
 
-  /user/transaction/{transactionId}/note/{noteId}:
+  /user/transactions/{transactionId}/note/{noteId}:
     patch:
       tags:
         - Transaction Module
@@ -194,7 +195,7 @@ paths:
         500:
           description: Internal server error
 
-  /user/transaction/{transactionId}/category:
+  /user/transactions/{transactionId}/category:
     patch:
       tags:
         - Transaction Module
@@ -232,7 +233,7 @@ paths:
         500:
           description: Internal server error
 
-  /user/transaction/categories:
+  /user/transactions/categories:
     get:
       tags:
         - Transaction Module
